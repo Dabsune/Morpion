@@ -1,6 +1,14 @@
 from arriere_boutique import changement, victoire, egalite
 from ordinateur import ordi
 
+
+def print_plateau(plateau):
+    print('    A  B  C')
+    for i, ligne in enumerate(plateau, start=1):
+        print(str(i) + ' ', end=' ')
+        print(' '.join(ligne))
+
+
 while True:
     plateau = [["⬛" for _ in range(3)] for _ in range(3)]
     joueur = ["❌", "🔵"]
@@ -21,9 +29,7 @@ while True:
         else:
             while True:
                 print("\033[1m" + f"\nTour de {joueur[tour]}" + "\033[0m")
-                print(plateau[0])
-                print(plateau[1])
-                print(plateau[2])
+                print_plateau(plateau)
                 choix = input("Choisis une case [A1 => C3]: ")
                 choix = choix.upper()
                 if changement(choix, plateau, joueur[tour]):
@@ -31,15 +37,11 @@ while True:
 
         if victoire(plateau, joueur[tour]):
             print("\033[1m" + f"\n🎉 ET C'EST UNE VICTOIRE POUR : {joueur[tour]}" + "\033[0m")
-            print(plateau[0])
-            print(plateau[1])
-            print(plateau[2])
+            print_plateau(plateau)
             break
         elif egalite(plateau):
             print("\033[1m" + "\n🎲 C'EST UN MATCH NUL !" + "\033[0m")
-            print(plateau[0])
-            print(plateau[1])
-            print(plateau[2])
+            print_plateau(plateau)
             break
 
         tour = (tour + 1) % 2
